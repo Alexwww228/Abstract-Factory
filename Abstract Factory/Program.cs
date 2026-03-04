@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BankSystemExtended
+namespace BankSystem
 {
     // ======================================================
     // 1. Интерфейсы продуктов
