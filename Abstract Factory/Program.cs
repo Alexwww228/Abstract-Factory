@@ -286,25 +286,34 @@ namespace BankSystemExtended
     {
         public static void Main()
         {
-            Console.WriteLine("Choose client type:");
-            Console.WriteLine("1 - Retail");
-            Console.WriteLine("2 - Corporate");
-            Console.WriteLine("3 - VIP");
-
-            string choice = Console.ReadLine();
-
-            IBankFactory factory = choice switch
+            while (true)
             {
-                "1" => new RetailBankFactory(),
-                "2" => new CorporateBankFactory(),
-                "3" => new VipBankFactory(),
-                _ => throw new Exception("Invalid choice")
-            };
+                Console.WriteLine("Enter client name (or 'exit' to quit):");
+                string name = Console.ReadLine();
+                if (name.ToLower() == "exit") break;
 
-            BankService service = new BankService(factory);
-            service.ServeClient();
+                Console.WriteLine("Select client type:");
+                Console.WriteLine("1 - Retail");
+                Console.WriteLine("2 - Corporate");
+                Console.WriteLine("3 - VIP");
 
-            Console.ReadLine();
+                string choice = Console.ReadLine();
+
+                IBankFactory factory = choice switch
+                {
+                    "1" => new RetailBankFactory(),
+                    "2" => new CorporateBankFactory(),
+                    "3" => new VipBankFactory(),
+                    _ => throw new Exception("Invalid choice")
+                };
+
+                BankService service = new BankService(factory);
+
+                Console.WriteLine($"\n--- Serving client: {name} ---");
+                service.ServeClient();
+            }
+
+            Console.WriteLine("Program finished.");
         }
     }
 }
